@@ -1,0 +1,9 @@
+$ cast send TaskEscrow postTask "Write a one-line tagline for a privacy-first notes app" --value 0.0003ether
+blockNumber          63145299
+status               1 (success)
+transactionHash      0x003da11625e781a64c563293cc1e23b0dfb9c808e0da2afcdb4ade28865f2170
+
+$ cast send TaskEscrow submitProof 4 "Tagline: Your notes, your keys, nobody else (ipfs://demo-tagline)"
+blockNumber          63145304
+status               1 (success)
+transactionHash      0x4c25b0f9841e69aaf06fc964d421d63e90c438e0e148e12d0601b84fb40cb3bf
