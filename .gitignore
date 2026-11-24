@@ -1,0 +1,8 @@
+.vault/
+deployed.env
+agent/processed.json
+PROJECT_NOTES.md
+out/
+cache/
+broadcast/
+lib/
