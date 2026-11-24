@@ -1,0 +1,9 @@
+$ cast send TaskEscrow postTask "Review the attached logo concept and say if it meets the brand brief" --value 0.0003ether
+blockNumber          63121890
+status               1 (success)
+transactionHash      0x3d4e57202cc990286482e1e51955cc4116b81a3f42dde09ff3b8a5b5671c0b72
+
+$ cast send TaskEscrow submitProof 2 "Review notes: concept uses the required palette and wordmark; meets 4/5 brief points (ipfs://demo-review)"
+blockNumber          63121894
+status               1 (success)
+transactionHash      0xe5001f234c0e7593270ca6d26f063f327194786519b2b69ea4ff1b6ab1edd8ce
