@@ -1,0 +1,5 @@
+$ python3 agent/triage_agent.py
+[agent] watching 0x8686cc7722c4677bC50036f02BA9076389e67D82 on Lasna for CaseFiled...
+[agent] new case #2 from 0x7351cc6055e9328f483df09c211d0913389c732e: Review notes: concept uses the required palette and wordmark; meets 4 of 5 brief points (ipfs://demo-review)
+[agent] LLM says APPROVE: Worker provided a review of the concept and assessed it against the brand brief requirements.
+[agent] verdict posted task=2 approved=True: Worker provided a review of the concept and assessed it against the brand brief requirements.
