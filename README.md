@@ -94,6 +94,22 @@ Lesson: fund your reactive contract for the callbacks you expect.
 | 3. react() -> CaseFiled | Lasna | [0xf9561d47...5e2541b8](https://lasna.reactscan.net/tx/0xf9561d471805a6e50e55d68bb356124d010f5aa8aa8a2c07bb33e9df5e2541b8) |
 | 4. AI agent postVerdict (APPROVE + rationale) | Base Sepolia | [0x893a63d8...79771ad0](https://sepolia.basescan.org/tx/0x893a63d84a2ba78345f0ea276d356597dcb9f08b80ac8804d3907b7179771ad0) |
 
+## Full-loop run (task #4, APPROVED path, post-debt-fix)
+
+Seeded after the reactive contract's system-contract debt was settled via
+`depositTo` (Lasna tx [0x34cd7e0a...52e7614c](https://lasna.reactscan.net/tx/0x34cd7e0a8a6d5280fbcc367e4f7d96723ebaa116f644db57c53912d552e7614c)).
+A contract in debt receives no events, which is why tasks #2 and #3 stalled;
+clearing the debt resumed delivery immediately.
+
+| Step | Chain | Tx |
+| --- | --- | --- |
+| 1. postTask (escrow 0.0003 ETH) | Base Sepolia | [0x003da116...865f2170](https://sepolia.basescan.org/tx/0x003da11625e781a64c563293cc1e23b0dfb9c808e0da2afcdb4ade28865f2170) |
+| 2. submitProof | Base Sepolia | [0x4c25b0f9...b40cb3bf](https://sepolia.basescan.org/tx/0x4c25b0f9841e69aaf06fc964d421d63e90c438e0e148e12d0601b84fb40cb3bf) |
+| 3. react() -> CaseFiled | Lasna | [0x428ba8df...327d3f104](https://lasna.reactscan.net/tx/0x428ba8df591b902e97a76b59482cae8fa1e4da2adfcb02b8ee6f143327d3f104) |
+| 4. AI agent postVerdict (APPROVE + rationale) | Base Sepolia | [0xdad6fb81...2c1ef6d4](https://sepolia.basescan.org/tx/0xdad6fb81249e3c26584f63b23078db3756fd90b71c6bcbc1fe5ff6ab2c1ef6d4) |
+| 5. react() -> SettlementRequested + requestCallbackV_1_0 | Lasna | [0x81d74257...f834ce91](https://lasna.reactscan.net/tx/0x81d74257565ade3e3812745a55879994501aedcdd2639290982d4ffcf834ce91) |
+| 6. callback -> releaseCallback -> PayoutReleased (worker paid) | Base Sepolia | [0xb62d40a8...76cfbb48b](https://sepolia.basescan.org/tx/0xb62d40a819a80d42ce3858f3855d383d7018f4603dc1a55ca31f43b76cfbb48b) |
+
 ## Run it
 
 ```bash
