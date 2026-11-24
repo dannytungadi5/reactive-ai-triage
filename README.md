@@ -79,6 +79,21 @@ AI verdict: REJECT - "The worker failed to provide a summary or section referenc
 | 5. react() -> SettlementRequested + requestCallbackV_1_0 | Lasna | [0x75439deb...e18e4a37](https://lasna.reactscan.net/tx/0x75439deb62b3abf6dce2c85351a817019749e46f2422bc6c9be40187e18e4a37) |
 | 6. callback -> releaseCallback -> RefundReleased (poster refunded) | Base Sepolia | [0x1bd131ff...e0d2df2a](https://sepolia.basescan.org/tx/0x1bd131ffb76e90580eb86c49dbe94a5eb4e60074c4781787d0fd6817e0d2df2a) |
 
+## Live capture run (task #2, AI verdict on-chain)
+
+The video's live segment. The AI verdict is final and on-chain; the settlement
+callback did not execute because the reactive contract had run out of lREACT
+when the verdict event was relayed (each loop costs ~0.024 lREACT). The contract
+was topped up afterwards (Lasna tx [0x3f17beab...c91c215d](https://lasna.reactscan.net/tx/0x3f17beab9e1b8ee2a490747a0a2ba651e3d2a4ede2ea6ae620abc61ca91c215d)).
+Lesson: fund your reactive contract for the callbacks you expect.
+
+| Step | Chain | Tx |
+| --- | --- | --- |
+| 1. postTask (escrow 0.0003 ETH) | Base Sepolia | [0x3d4e5720...5671c0b72](https://sepolia.basescan.org/tx/0x3d4e57202cc990286482e1e51955cc4116b81a3f42dde09ff3b8a5b5671c0b72) |
+| 2. submitProof | Base Sepolia | [0xe5001f23...b1edd8ce](https://sepolia.basescan.org/tx/0xe5001f234c0e7593270ca6d26f063f327194786519b2b69ea4ff1b6ab1edd8ce) |
+| 3. react() -> CaseFiled | Lasna | [0xf9561d47...5e2541b8](https://lasna.reactscan.net/tx/0xf9561d471805a6e50e55d68bb356124d010f5aa8aa8a2c07bb33e9df5e2541b8) |
+| 4. AI agent postVerdict (APPROVE + rationale) | Base Sepolia | [0x893a63d8...79771ad0](https://sepolia.basescan.org/tx/0x893a63d84a2ba78345f0ea276d356597dcb9f08b80ac8804d3907b7179771ad0) |
+
 ## Run it
 
 ```bash
