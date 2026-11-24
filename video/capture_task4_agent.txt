@@ -1,0 +1,4 @@
+[agent] watching 0x8686cc7722c4677bC50036f02BA9076389e67D82 on Lasna for CaseFiled...
+[agent] new case #4 from 0x7351cc6055e9328f483df09c211d0913389c732e: Tagline: Your notes, your keys, nobody else (ipfs://demo-tagline)
+[agent] LLM says APPROVE: The worker provided a concise, relevant tagline that emphasizes privacy and ownership.
+[agent] verdict posted task=4 approved=True: The worker provided a concise, relevant tagline that emphasizes privacy and ownership.
