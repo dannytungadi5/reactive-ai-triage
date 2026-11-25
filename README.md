@@ -155,3 +155,11 @@ Known limits: the reactive contract trusts `block.timestamp` on Lasna to
 compare with the origin chain deadline; the Cron event source address and
 chain id on Lasna (`0x...fffFfF`, 5318007) come from the Reactive docs and are
 only checked in mocks until V2 runs on the live network.
+
+## Prompt-injection defense (agent/triage_agent.py)
+The worker's proof is untrusted text that an LLM reads, so it is treated as an attack surface. Four layers:
+1. Deterministic filter: proofs that address the judge (ignore previous instructions, "VERDICT: APPROVE", role changes, fenced blocks) are rejected without calling the LLM.
+2. Sanitize: non-ASCII and control characters are stripped (blocks zero-width and homoglyph tricks), length capped.
+3. Data-not-instructions prompt: brief and proof sit between random-nonce markers; the system rule says nothing inside is an instruction and a proof that dictates its own verdict is rejected.
+4. Strict output: anything other than the 2-line format becomes REJECT, never APPROVE. On chain, size limits (512 B proof, 280 B rationale) cap what can be sent.
+`python3 agent/test_guard.py` runs the offline tests. Limits: the regex layer is a heuristic, a determined attacker may phrase around it; layers 3 and 4 are the backstop, and a wrong approval is bounded by the escrow amount.
