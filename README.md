@@ -136,3 +136,22 @@ bash demo.sh
 ```
 
 No real funds anywhere: faucet ETH + faucet lREACT only.
+
+## V2 (work in progress, not yet deployed)
+
+`src/TaskEscrowV2.sol` and `src/TriageReactiveV2.sol` extend the deployed V1
+flow. They are covered by Forge tests (`forge test`, 19 tests, run in CI) but
+are NOT deployed yet: the testnet addresses above are all V1.
+
+- Deadline per task. If the oracle never posts a verdict, a Reactive cron
+  (Cron1000, about 17 minutes on Lasna) triggers `reclaimCallback` and the
+  poster is refunded. Reclaim is blocked once a verdict exists, and a task can
+  never settle twice.
+- Size limits on untrusted text (proof reference 512 bytes, rationale 280
+  bytes), rejected on-chain before the AI agent reads them.
+- The cron scan is bounded (10 tasks per tick), so gas per tick is capped.
+
+Known limits: the reactive contract trusts `block.timestamp` on Lasna to
+compare with the origin chain deadline; the Cron event source address and
+chain id on Lasna (`0x...fffFfF`, 5318007) come from the Reactive docs and are
+only checked in mocks until V2 runs on the live network.

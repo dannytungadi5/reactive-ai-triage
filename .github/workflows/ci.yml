@@ -1,0 +1,14 @@
+name: ci
+on: [push, pull_request]
+jobs:
+  forge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: foundry-rs/foundry-toolchain@v1
+      - name: Install libs
+        run: |
+          git clone --depth 1 https://github.com/Reactive-Network/reactive-lib-omni lib/reactive-lib
+          git clone --depth 1 https://github.com/foundry-rs/forge-std lib/forge-std
+      - run: forge build
+      - run: forge test -vv
