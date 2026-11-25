@@ -8,6 +8,20 @@ The AI is not a build tool here — it is a component of the running system:
 every case is filed on-chain, judged by an LLM, and settled by a
 reactive-network callback.
 
+## Why this entry
+
+1. **The AI is inside the loop, not beside it.** A Gemma 4 31B agent is the
+   adjudicator of a live escrow: its verdict is a transaction, and money
+   moves on it without any human in the path.
+2. **The full Reactive story in one flow.** Cross-chain event (Base Sepolia)
+   -> reactive contract (Lasna) -> off-chain AI verdict -> Reactive callback
+   settles the escrow back on Base Sepolia. Two chains, three actors, zero
+   clicks — and both outcomes proven (payout on approve, refund on reject).
+3. **It was actually run, and it shows.** Three complete loops on public
+   testnets with every tx hash below, including the failure mode nobody puts
+   in a demo: a reactive contract in debt silently stops receiving events
+   (task #2), diagnosed and fixed live via `depositTo` (task #4).
+
 ## The loop
 
 ```
