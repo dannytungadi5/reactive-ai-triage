@@ -140,7 +140,7 @@ No real funds anywhere: faucet ETH + faucet lREACT only.
 ## V2 (work in progress, not yet deployed)
 
 `src/TaskEscrowV2.sol` and `src/TriageReactiveV2.sol` extend the deployed V1
-flow. They are covered by Forge tests (`forge test`, 19 tests, run in CI) but
+flow. They are covered by Forge tests (`forge test`, 19 tests; a GitHub Actions workflow is in `ci/ci.yml`, to be moved to `.github/workflows/` once the push token has the workflow scope, so it is NOT running yet) but
 are NOT deployed yet: the testnet addresses above are all V1.
 
 - Deadline per task. If the oracle never posts a verdict, a Reactive cron
