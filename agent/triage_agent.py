@@ -76,18 +76,18 @@ def decode_case_filed(log):
 
 
 def read_task(task_id):
-    """tasks(uint256) returns (poster, worker, amount, verdict, settled, caseRef, proofRef)."""
-    sig = "tasks(uint256)(address,address,uint256,uint8,bool,string,string)"
+    """tasks(uint256) (V2) returns (poster, worker, amount, deadline, verdict, settled, caseRef, proofRef)."""
+    sig = "tasks(uint256)(address,address,uint256,uint64,uint8,bool,string,string)"
     out = cast("call", TASK_ESCROW, sig, str(task_id), "--rpc-url", ORIGIN_RPC)
     lines = [l.strip() for l in out.splitlines() if l.strip()]
     # caseRef/proofRef lines come back quoted by cast
     def unquote(s):
         return s[1:-1] if s.startswith('"') and s.endswith('"') else s
     return {
-        "poster": lines[0], "worker": lines[1], "amount": lines[2],
-        "verdict": lines[3], "settled": lines[4],
-        "case_ref": unquote(lines[5]) if len(lines) > 5 else "",
-        "proof_ref": unquote(lines[6]) if len(lines) > 6 else "",
+        "poster": lines[0], "worker": lines[1], "amount": lines[2], "deadline": lines[3],
+        "verdict": lines[4], "settled": lines[5],
+        "case_ref": unquote(lines[6]) if len(lines) > 6 else "",
+        "proof_ref": unquote(lines[7]) if len(lines) > 7 else "",
     }
 
 

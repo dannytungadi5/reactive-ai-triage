@@ -6,3 +6,4 @@ out/
 cache/
 broadcast/
 lib/
+deployed_v2.env

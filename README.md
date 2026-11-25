@@ -137,24 +137,24 @@ bash demo.sh
 
 No real funds anywhere: faucet ETH + faucet lREACT only.
 
-## V2 (work in progress, not yet deployed)
+## V2 (deployed and demoed on testnet, 25 Nov 2026)
 
-`src/TaskEscrowV2.sol` and `src/TriageReactiveV2.sol` extend the deployed V1
-flow. They are covered by Forge tests (`forge test`, 19 tests; a GitHub Actions workflow is in `ci/ci.yml`, to be moved to `.github/workflows/` once the push token has the workflow scope, so it is NOT running yet) but
-are NOT deployed yet: the testnet addresses above are all V1.
+`src/TaskEscrowV2.sol` and `src/TriageReactiveV2.sol` extend the V1 flow. 19 Forge tests (`forge test`). A GitHub Actions workflow is kept in `ci/ci.yml` (it is NOT running: the push token lacks the `workflow` scope).
 
-- Deadline per task. If the oracle never posts a verdict, a Reactive cron
-  (Cron1000, about 17 minutes on Lasna) triggers `reclaimCallback` and the
-  poster is refunded. Reclaim is blocked once a verdict exists, and a task can
-  never settle twice.
-- Size limits on untrusted text (proof reference 512 bytes, rationale 280
-  bytes), rejected on-chain before the AI agent reads them.
-- The cron scan is bounded (10 tasks per tick), so gas per tick is capped.
+| Contract | Chain | Address |
+|---|---|---|
+| TaskEscrowV2 | Base Sepolia | `0x753D14dA407EFb32B2D64A1bE21cb2e13aBFA897` |
+| TriageReactiveV2 | Reactive Lasna | `0xD3405a61BD65AC628B9D89Af6e59eFA70A16bB2C` |
 
-Known limits: the reactive contract trusts `block.timestamp` on Lasna to
-compare with the origin chain deadline; the Cron event source address and
-chain id on Lasna (`0x...fffFfF`, 5318007) come from the Reactive docs and are
-only checked in mocks until V2 runs on the live network.
+What V2 adds, all run live:
+- **Deadline reclaim.** If the oracle never posts a verdict, the Reactive cron (Cron1000) triggers `reclaimCallback` and the poster is refunded. Live: task 0 (150 s deadline, no proof) was reclaimed by the cron with no human action, tx `0x625b63404a5620b1be2fa587e77e021b7b7e217278ce7c162ef07849f07bac98` (DeadlineReclaimed). Reclaim is blocked once a verdict exists and a task can never settle twice.
+- **Prompt-injection defense, on chain.** Task 1: the worker proof was an attack telling the judge to approve and release funds. The agent rejected it (verdict tx `0x30436a4ca48f8c06732a780cbbbaec6bc644c777b458908e4739ee46463e3e11`) and a Reactive callback refunded the poster (RefundReleased tx `0xd40211ecba732dd3c2b912783d0a72d713c926c2d07be2ab8f54a6cdad46c87d`).
+- **Legit proof still pays.** Task 2 (typo fix with commit link): APPROVE (verdict tx `0x3170aa8817fa9fc726caac6d020f80a87bd101e35ddbe08bf27b69e96c7eb43a`), payout tx `0x7cf1c3f12be98969f456e107c13aa6f01d69742e4aa934126cbff2b9b2b670b4`.
+- Size limits on untrusted text (proof 512 bytes, rationale 280 bytes) enforced on chain; the cron scan is bounded (10 tasks per tick).
+
+Raw logs: `capture/v2_agent_log.txt`, `capture/v2_events.txt`.
+
+Honest limits: the demo used one testnet wallet as poster, worker and oracle, 0.0001 testnet ETH per task. The AI oracle is a single trusted key (a design limit of this prototype). The reactive contract compares `block.timestamp` on Lasna with the origin chain deadline. The V1 addresses above remain deployed and are what the first demo video shows.
 
 ## Prompt-injection defense (agent/triage_agent.py)
 The worker's proof is untrusted text that an LLM reads, so it is treated as an attack surface. Four layers:
