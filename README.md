@@ -12,7 +12,7 @@ The AI is not a build tool here — it is a component of the running system:
 every case is filed on-chain, judged by an LLM, and settled by a
 reactive-network callback.
 
-**Landing page:** https://reactive-ai-triage.pages.dev/
+**Landing page:** https://juryloop.pages.dev/
 
 ## Why this entry
 
