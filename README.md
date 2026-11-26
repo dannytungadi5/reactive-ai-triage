@@ -10,6 +10,8 @@ The AI is not a build tool here — it is a component of the running system:
 every case is filed on-chain, judged by an LLM, and settled by a
 reactive-network callback.
 
+**Landing page:** https://reactive-ai-triage.pages.dev/
+
 ## Why this entry
 
 1. **The AI is inside the loop, not beside it.** A Gemma 4 31B agent is the
