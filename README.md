@@ -16,6 +16,21 @@ reactive-network callback.
 
 **Demo video (1:26):** https://youtu.be/wjCjA7In4wg
 
+## Second live run (post-launch pilot, builder-operated wallets)
+
+Run on 27 Nov 2026 on the V2 pair. Honesty note: the poster and both workers
+are three wallets operated by the builder, not outside users. Every step is a
+public transaction on Base Sepolia (TaskEscrowV2, `0x753D14dA407EFb32B2D64A1bE21cb2e13aBFA897`):
+
+| Task | Case | Post | Proof | Verdict | Settlement |
+|---|---|---|---|---|---|
+| 12 | Good proof (3-bullet summary) | `0xdbe8098f9ed2ee938cb5daec1ee5d0b5a25c2cc54497d759d81ae695a087703c` | `0x06c26dc771515032b31f913f62aadab00384081710da8edcdd36a79dda428df0` | APPROVE `0xabb2512191e3c8c912aee90cbc2d7cf5acac990e285506e3b8af1dec4ffba680` | PayoutReleased `0x95cb3ef4af4e645032d3736d635a2e0e4b10c7c35f930581389db049f56df071` |
+| 13 | Prompt-injection proof | `0xe704472107e889a08a83f9f328948f1ff3d2d2acea4318b1a6db8373b0260b45` | `0x2c030d04dd284ba08a0c44ea7bfe432c1d144154b1f6679b2c778f12b7ee600a` | REJECT `0x13fa4cfbbc849d053b8c28e3c5daad88fee0ddeb8d08642d7e7db665c1abc30d` | RefundReleased `0xcd52bdf6205d1e0eb3e2a6aa9218b9f83e36712832ab9adf6dc6edae00e87489` |
+
+Earlier pilot tasks lost their events while the reactive contract was in
+REACT debt (events during debt are not replayed). Debt was repaid with
+`depositTo` and the cases were re-posted as tasks 12 and 13 above.
+
 ## Why this entry
 
 1. **The AI is inside the loop, not beside it.** A Gemma 4 31B agent is the
