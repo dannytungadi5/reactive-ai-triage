@@ -187,7 +187,7 @@ No real funds anywhere: faucet ETH + faucet lREACT only.
 
 | Contract | Chain | Address |
 |---|---|---|
-| TaskEscrowV2 | Base Sepolia | `0x753D14dA407EFb32B2D64A1bE21cb2e13aBFA897` ([source verified](https://repo.sourcify.dev/84532/0x753D14dA407EFb32B2D64A1bE21cb2e13aBFA897)) |
+| TaskEscrowV2 | Base Sepolia | `0x753D14dA407EFb32B2D64A1bE21cb2e13aBFA897` ([source verified on Sourcify](https://repo.sourcify.dev/84532/0x753D14dA407EFb32B2D64A1bE21cb2e13aBFA897), [Blockscout](https://base-sepolia.blockscout.com/address/0x753D14dA407EFb32B2D64A1bE21cb2e13aBFA897?tab=contract)) |
 | TriageReactiveV2 | Reactive Lasna | `0xD3405a61BD65AC628B9D89Af6e59eFA70A16bB2C` ([source verified](https://repo.sourcify.dev/5318007/0xD3405a61BD65AC628B9D89Af6e59eFA70A16bB2C)) |
 
 What V2 adds, all run live:
