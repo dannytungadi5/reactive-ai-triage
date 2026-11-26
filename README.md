@@ -14,6 +14,8 @@ reactive-network callback.
 
 **Landing page:** https://juryloop.pages.dev/
 
+**Demo video (1:26):** https://youtu.be/wjCjA7In4wg
+
 ## Why this entry
 
 1. **The AI is inside the loop, not beside it.** A Gemma 4 31B agent is the
