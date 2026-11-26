@@ -56,6 +56,27 @@ poster                worker               Lasna (Reactive)            origin ch
   Subscribes to `ProofSubmitted` / `VerdictPosted`, files `CaseFiled` for the
   AI agent, and requests the settlement callback via the system contract.
 
+## Why this can sell (business angle)
+
+Freelance platforms charge both sides and still take days to resolve disputes:
+
+- Upwork: freelancer service fee of 0-15% per contract (Upwork support).
+- Fiverr: keeps 20% of every order, and the client pays 5.5% + $3.50 on orders
+  under $200 (freelanceatlas, 2026).
+- Freelancer.com: milestone arbitration costs $5 or 5% (whichever is greater),
+  after a 4-14+ day dispute window (freelancer.com/feesandcharges).
+- Kleros (closest on-chain alternative): human jurors, arbitration fees in ETH,
+  rulings in days (docs.kleros.io).
+
+An AI verdict costs a fraction of a cent plus gas and lands in under a minute.
+Target users are freelance and micro-task platforms that pay dispute costs
+today (integration as a settlement API), and freelancers who currently lose
+10-20% to platform fees. The intended model is a flat per-verdict settlement
+fee, not a percentage of the payout. Honest limits: this is a single-oracle
+testnet prototype and AI judgment quality varies by task; for high-value
+cases the design pairs with human arbitration (e.g. Kleros) as an appeal
+layer rather than competing with it.
+
 ## Off-chain AI agent
 
 `agent/triage_agent.py` (stdlib-only Python): polls Lasna for `CaseFiled`,
