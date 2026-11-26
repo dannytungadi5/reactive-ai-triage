@@ -7,3 +7,5 @@ cache/
 broadcast/
 lib/
 deployed_v2.env
+__pycache__/
+*.pyc
