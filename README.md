@@ -1,5 +1,7 @@
 # AI Signal Triage — Reactive Meets AI
 
+[![ci](https://github.com/dannytungadi5/reactive-ai-triage/actions/workflows/ci.yml/badge.svg)](https://github.com/dannytungadi5/reactive-ai-triage/actions/workflows/ci.yml)
+
 An escrow where the adjudicator is an AI, and its decision executes on-chain
 autonomously through Reactive Network. No human clicks "release".
 
@@ -139,12 +141,12 @@ No real funds anywhere: faucet ETH + faucet lREACT only.
 
 ## V2 (deployed and demoed on testnet, 25 Nov 2026)
 
-`src/TaskEscrowV2.sol` and `src/TriageReactiveV2.sol` extend the V1 flow. 19 Forge tests (`forge test`). A GitHub Actions workflow is kept in `ci/ci.yml` (it is NOT running: the push token lacks the `workflow` scope).
+`src/TaskEscrowV2.sol` and `src/TriageReactiveV2.sol` extend the V1 flow. 19 Forge tests (`forge test`), enforced by GitHub Actions CI (`.github/workflows/ci.yml`, green on every push).
 
 | Contract | Chain | Address |
 |---|---|---|
-| TaskEscrowV2 | Base Sepolia | `0x753D14dA407EFb32B2D64A1bE21cb2e13aBFA897` |
-| TriageReactiveV2 | Reactive Lasna | `0xD3405a61BD65AC628B9D89Af6e59eFA70A16bB2C` |
+| TaskEscrowV2 | Base Sepolia | `0x753D14dA407EFb32B2D64A1bE21cb2e13aBFA897` ([source verified](https://repo.sourcify.dev/84532/0x753D14dA407EFb32B2D64A1bE21cb2e13aBFA897)) |
+| TriageReactiveV2 | Reactive Lasna | `0xD3405a61BD65AC628B9D89Af6e59eFA70A16bB2C` ([source verified](https://repo.sourcify.dev/5318007/0xD3405a61BD65AC628B9D89Af6e59eFA70A16bB2C)) |
 
 What V2 adds, all run live:
 - **Deadline reclaim.** If the oracle never posts a verdict, the Reactive cron (Cron1000) triggers `reclaimCallback` and the poster is refunded. Live: task 0 (150 s deadline, no proof) was reclaimed by the cron with no human action, tx `0x625b63404a5620b1be2fa587e77e021b7b7e217278ce7c162ef07849f07bac98` (DeadlineReclaimed). Reclaim is blocked once a verdict exists and a task can never settle twice.
