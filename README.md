@@ -1,6 +1,8 @@
-# AI Signal Triage — Reactive Meets AI
+# Juryloop — Reactive Meets AI
 
 [![ci](https://github.com/dannytungadi5/reactive-ai-triage/actions/workflows/ci.yml/badge.svg)](https://github.com/dannytungadi5/reactive-ai-triage/actions/workflows/ci.yml)
+
+> **Juryloop** (formerly "Reactive AI Triage"). The judge is an AI. The settlement is on-chain. Contract names such as `TriageReactiveV2` keep their original names.
 
 An escrow where the adjudicator is an AI, and its decision executes on-chain
 autonomously through Reactive Network. No human clicks "release".
