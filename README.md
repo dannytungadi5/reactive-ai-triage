@@ -16,6 +16,29 @@ reactive-network callback.
 
 **Demo video (1:26):** https://youtu.be/wjCjA7In4wg
 
+## Current deployment (V2, testnet only)
+
+| Contract | Chain | Address |
+|---|---|---|
+| TaskEscrowV2 | Base Sepolia | [`0x753D14dA407EFb32B2D64A1bE21cb2e13aBFA897`](https://base-sepolia.blockscout.com/address/0x753D14dA407EFb32B2D64A1bE21cb2e13aBFA897) |
+| TriageReactiveV2 | Reactive Lasna | [`0xD3405a61BD65AC628B9D89Af6e59eFA70A16bB2C`](https://repo.sourcify.dev/5318007/0xD3405a61BD65AC628B9D89Af6e59eFA70A16bB2C) |
+
+Both are source-verified on Sourcify (full match). Scope: testnets only (Base Sepolia, Reactive Lasna), faucet funds, no real value. The AI judge is Gemma 4 31B. 19 Forge tests (13 on the escrow, 6 on the reactive contract) run in GitHub Actions CI.
+
+## Loop proof on Base Sepolia (Blockscout)
+
+Each hash below was checked on Blockscout on 27 Nov 2026: status ok, to the contract shown, event as listed. Every row is a builder-operated testnet wallet, not an outside user.
+
+| Step | Task | Event | Tx |
+|---|---|---|---|
+| Approve verdict | 12 | `VerdictPosted` (APPROVE) on TaskEscrowV2 | [`0xabb25121...fba680`](https://base-sepolia.blockscout.com/tx/0xabb2512191e3c8c912aee90cbc2d7cf5acac990e285506e3b8af1dec4ffba680) |
+| Callback payout | 12 | `PayoutReleased` (Reactive callback) | [`0x95cb3ef4...6df071`](https://base-sepolia.blockscout.com/tx/0x95cb3ef4af4e645032d3736d635a2e0e4b10c7c35f930581389db049f56df071) |
+| Reject verdict (prompt injection) | 13 | `VerdictPosted` (REJECT, injection guard) on TaskEscrowV2 | [`0x13fa4cfb...abc30d`](https://base-sepolia.blockscout.com/tx/0x13fa4cfbbc849d053b8c28e3c5daad88fee0ddeb8d08642d7e7db665c1abc30d) |
+| Callback refund | 13 | `RefundReleased` (Reactive callback) | [`0xcd52bdf6...e87489`](https://base-sepolia.blockscout.com/tx/0xcd52bdf6205d1e0eb3e2a6aa9218b9f83e36712832ab9adf6dc6edae00e87489) |
+| Cron deadline reclaim | 10 | `DeadlineReclaimed` (Reactive cron callback, 0.0005 ETH back to poster) | [`0xc36fd0ca...97a314`](https://base-sepolia.blockscout.com/tx/0xc36fd0caa568f938e6032285d248a6d9edcc4d76acf529c3591cd7159a97a314) |
+
+The approve verdict and its payout landed one second apart, as did the reject verdict and its refund: no human step between the AI verdict and the settlement.
+
 ## Second live run (post-launch pilot, builder-operated wallets)
 
 Run on 27 Nov 2026 on the V2 pair. Honesty note: the poster and both workers
@@ -66,7 +89,7 @@ poster                worker               Lasna (Reactive)            origin ch
   |                     | <--- payout (Approved) / refund poster (Rejected) |
 ```
 
-## Contracts
+## V1 contracts (first demo, superseded by V2)
 
 - `src/TaskEscrow.sol` — origin + callback contract (Base Sepolia or Ethereum
   Sepolia). Payable `postTask`, `submitProof`, oracle-only `postVerdict`, and
@@ -101,11 +124,13 @@ layer rather than competing with it.
 ## Off-chain AI agent
 
 `agent/triage_agent.py` (stdlib-only Python): polls Lasna for `CaseFiled`,
-reads the task brief + proof from the origin chain, asks an LLM
-(Gemini / Requesty / NVIDIA — pluggable) for APPROVE/REJECT + a one-line
-rationale, and posts the verdict as the oracle EOA.
+reads the task brief + proof from the origin chain, asks an LLM for
+APPROVE/REJECT + a one-line rationale, and posts the verdict as the oracle EOA.
+The judge model for Juryloop is Gemma 4 31B (`google/gemma-4-31b-it` through the
+`requesty` provider path). The provider is pluggable (`gemini`, `requesty`,
+`nvidia`); the per-run provider is not recorded in the repo logs.
 
-## Deployment
+## V1 deployment (legacy, still deployed, shown in the first demo video)
 
 | Piece | Network | Address |
 |---|---|---|
